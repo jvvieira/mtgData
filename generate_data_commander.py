@@ -3,10 +3,10 @@ import pandas as pd
 import numpy as np
 
 ### Treshhold for cards appearence
-rate = 0.15
+rate = 0.1
 
 ### Card to investigate
-card_name = 'Phyrexian Metamorph'
+card_name = 'Food Chain'
 
 
 
@@ -110,11 +110,14 @@ for filename in all_files:
 
 total_decklists += len(all_files)
 
+print("Total de cards: ", len(all_decklists))
+
+
 # Get Comanders
 all_commanders["qtd"] = all_commanders["qtd"].astype(int)
 all_commanders["card_name"] = all_commanders["card_name"].str.strip()
 df_aggr = all_commanders.iloc[:, [0,1]].groupby('card_name').agg('sum')
-#print(df_aggr.sort_values(by='qtd', ascending=False))
+# print(df_aggr.sort_values(by='qtd', ascending=False))
 
 # Get the most used cards
 all_decklists["qtd"] = all_decklists["qtd"].astype(int)
@@ -125,11 +128,12 @@ basic_lands = ['Plains', 'Island', 'Swamp', 'Mountain', 'Forest']
 all_decklists = all_decklists[~all_decklists['card_name'].isin(basic_lands)]
 
 df_aggr = all_decklists.iloc[:, [0,1]].groupby('card_name').agg('sum')
-print(df_aggr.sort_values(by='qtd', ascending=False)[df_aggr['qtd'] >= total_decklists * rate])
+print("Cards Similares: ", len(df_aggr[df_aggr['qtd']>= total_decklists * rate]))
+#print(df_aggr.sort_values(by='qtd', ascending=False)[df_aggr['qtd'] >= total_decklists * rate])
 
 
 # Card Search
-df_decklists = all_decklists[all_decklists['card_name'] == card_name]
-df_commanders = all_commanders[all_commanders['decklist'].isin(df_decklists['decklist'].tolist())]
+# df_decklists = all_decklists[all_decklists['card_name'] == card_name]
+# df_commanders = all_commanders[all_commanders['decklist'].isin(df_decklists['decklist'].tolist())]
 
-print(df_commanders.sort_values(by='card_name'))
+# print(df_commanders.sort_values(by='card_name'))
