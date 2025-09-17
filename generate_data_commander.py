@@ -34,7 +34,7 @@ def split_file_topdeck(file_path, delimiter):
                 if len(line.strip()) > 0:
                     original_string = line.strip()
                     postion = original_string.find(" ")
-                    return_data.append([original_string[0:postion], original_string[postion:]])
+                    return_data.append([original_string[0:postion].strip(), original_string[postion:].strip()])
     return return_data
 
 def split_file_moxfield(file_path, delimiter):
@@ -56,7 +56,7 @@ def split_file_moxfield(file_path, delimiter):
                 if len(line.strip()) > 0:
                     original_string = line.strip()
                     postion = original_string.find(" ")
-                    return_data.append([original_string[0:postion], original_string[postion:]])
+                    return_data.append([original_string[0:postion].strip(), original_string[postion:].strip()])
     return return_data
 
 # Get decklists

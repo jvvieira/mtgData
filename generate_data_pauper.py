@@ -23,7 +23,7 @@ def split_file_pauper(file_path):
             
             original_string = line.strip()
             postion = original_string.find(" ")
-            return_data.append([original_string[0:postion], original_string[postion:], is_mainboard])
+            return_data.append([original_string[0:postion].strip(), original_string[postion:].strip(), is_mainboard])
     return return_data
 
 
@@ -34,11 +34,11 @@ all_decklists = pd.DataFrame()
 ### Get Decklists
 for filename in all_files:
     decklsit = np.array(split_file_pauper(filename))
-    print(decklsit)
     df  = pd.DataFrame(decklsit, columns=["qtd", "card_name", "mainboard"])
     df['decklist'] = filename.split('/')[3]
     df = df.dropna()
     all_decklists = pd.concat([all_decklists, df])
 
+unique_cards = all_decklists['card_name'].unique()
 
-print(all_decklists.sort_values(by="card_name"))
+print(len(unique_cards))
